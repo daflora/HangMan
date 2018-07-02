@@ -33,7 +33,7 @@
       resultMatches.map(function(num) {
 
         var domElem = document.createElement("span");
-        domElem.innerHTML = currentWordFull[num].toUpperCase();
+        domElem.innerHTML = currentWord[num].toUpperCase();
         letterBlocks[num].appendChild(domElem);
         displayCongratulatoryMessageOnWin();
 
@@ -88,7 +88,7 @@
         removeGraveyardLetters();
         removeCorrectlyGuessedLetters();
         removeFillInTheBlanksAroundOldWord();
-        setWordToBeGuessed();
+        hangmanWords();
       }
     };
   }();
@@ -120,42 +120,48 @@
   }
 
   // adding dictionary and word filter //
-  var hangmanWords = [
-    "the","of","and","a","to","in","is","you","that","it","he",
-     "was","for","on","are","as","with","his","they","i","at","be",
-     "this","have","from","or","one","had","by","word","but","not",
-     "what","all","were","we","when","your","can","said","there",
-     "use","an","each","which","she","do","how","their","if","will",
-     "up","other","about","out","many","then","them","these","so",
-     "some","her","would","make","like","him","into","time","has",
-     "look","two","more","write","go","see","number","no","way",
-     "could","people","my","than","first","water","been","call",
-     "who","oil","its","now","find","long","down","day","did","get",
-     "come","made","may","part"
-  ];
+  var movie =
+    [
+      "the","of","and","a","to","in","is","you","that","it","he",
+       "was","for","on","are","as","with","his","they","i","at","be",
+       "this","have","from","or","one","had","by","word","but","not",
+       "what","all","were","we","when","your","can","said","there",
+       "use","an","each","which","she","do","how","their","if","will",
+       "up","other","about","out","many","then","them","these","so",
+       "some","her","would","make","like","him","into","time","has",
+       "look","two","more","write","go","see","number","no","way",
+       "could","people","my","than","first","water","been","call",
+       "who","oil","its","now","find","long","down","day","did","get",
+       "come","made","may","part"
+    ];
+  // Change hangmanwords to draw from API search //
 
-  var easyArray = hangmanWords.filter(function(word){
-    return word.length <= 4;
-  });
+  var hangmanWords = function(){
+    var titleStart = wordSelect(movie);
 
-  var hardArray = hangmanWords.filter(function(word){
-    return word.length > 4;
-  });
+    var queryURL = "https://www.omdbapi.com/?t=" + titleStart + "&y=&plot=short&apikey=trilogy";
 
-  function wordSelect (array) {
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function(response){
+      console.log(response);
+      console.log(response.Title);
+      setWordToBeGuessed(response.Title);
+      // return response.Title;
+    });
+  };
+
+  function wordSelect(array) {
     var num = Math.floor(Math.random() * (array.length - 1));
     var word = array[num];
+    console.log(word);
     return word;
   }
 
-  function setWordToBeGuessed(){
+  function setWordToBeGuessed(currentWord){
 
-    currentWordFull = wordSelect(hangmanWords);//IMPORTANT: replace the number with wordSelect (the function) for production use
-
-    //set an all upper case version of the current word
-    currentWord = currentWordFull.toUpperCase();
     //creates blocks in the DOM indicating where there are letters and spaces
-
 
     currentWord.split("").map(function(character) {
       var guessWordBlock = document.getElementById("word-to-guess");
@@ -164,11 +170,9 @@
 
       if (character.match(/[a-z]/i)) {
         domElem.className = "character-block is-letter";
-
       } else {
         domElem.className = "character-block";
       }
-
       guessWordBlock.appendChild(domElem);
     });
   }
@@ -176,5 +180,5 @@
   var currentWordFull;
   var currentWord;
 
-  setWordToBeGuessed();
+  hangmanWords();
 })();
