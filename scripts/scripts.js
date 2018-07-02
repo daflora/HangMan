@@ -132,7 +132,7 @@
        "look","two","more","write","go","see","number","no","way",
        "could","people","my","than","first","water","been","call",
        "who","oil","its","now","find","long","down","day","did","get",
-       "come","made","may","part"
+       "come","made","may","part","alien"
     ];
   // Change hangmanwords to draw from API search //
 
@@ -159,11 +159,11 @@
     return word;
   }
 
-  function setWordToBeGuessed(currentWord){
+  function setWordToBeGuessed(word){
 
     //creates blocks in the DOM indicating where there are letters and spaces
 
-    currentWord.split("").map(function(character) {
+    word.split("").map(function(character) {
       var guessWordBlock = document.getElementById("word-to-guess");
 
       var domElem = document.createElement("div");
@@ -175,9 +175,10 @@
       }
       guessWordBlock.appendChild(domElem);
     });
+    currentWord = word;
   }
 
-  var currentWordFull;
+
   var currentWord;
 
   hangmanWords();
