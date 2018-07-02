@@ -147,7 +147,7 @@
     }).then(function(response){
       console.log(response);
       console.log(response.Title);
-      setWordToBeGuessed(response.Title);
+      setWordToBeGuessed(response.Title.toUpperCase());
       // return response.Title;
     });
   };
@@ -162,13 +162,13 @@
   function setWordToBeGuessed(word){
 
     //creates blocks in the DOM indicating where there are letters and spaces
-
+    // word = word.split(" ");
     word.split("").map(function(character) {
       var guessWordBlock = document.getElementById("word-to-guess");
 
       var domElem = document.createElement("div");
 
-      if (character.match(/[a-z]/i)) {
+      if (character.match(/[a-zA-Z]/g)) {
         domElem.className = "character-block is-letter";
       } else {
         domElem.className = "character-block";
