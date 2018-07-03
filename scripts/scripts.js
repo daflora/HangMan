@@ -168,7 +168,7 @@
 
       var domElem = document.createElement("div");
 
-      if (character.match(/[a-zA-Z]/g)) {
+      if (character.match(/[a-z]/i)) {
         domElem.className = "character-block is-letter";
       } else {
         domElem.className = "character-block";
