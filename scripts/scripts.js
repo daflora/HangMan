@@ -120,7 +120,7 @@
   }
 
   // adding dictionary and word filter //
-  var movie =
+  var movieSeed =
     [
       "the","of","and","a","to","in","is","you","that","it","he",
        "was","for","on","are","as","with","his","they","i","at","be",
@@ -135,9 +135,10 @@
        "come","made","may","part","alien"
     ];
   // Change hangmanwords to draw from API search //
+  var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
   var hangmanWords = function(){
-    var titleStart = wordSelect(movie);
+    var titleStart = wordSelect(movieSeed);
 
     var queryURL = "https://www.omdbapi.com/?t=" + titleStart + "&y=&plot=short&apikey=trilogy";
 
@@ -168,8 +169,11 @@
 
       var domElem = document.createElement("div");
 
-      if (character.match(/[a-z]/i)) {
+      if (alphabet.includes(character)) {
         domElem.className = "character-block is-letter";
+        console.log(character);
+      } else if (character === " ") {
+        domElem.className = "character-block";
       } else {
         domElem.className = "character-block";
       }
