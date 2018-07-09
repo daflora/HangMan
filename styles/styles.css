@@ -108,6 +108,10 @@ button .pull-right{
   box-shadow: 0 .1em 0 0 black;
 }
 
+.is-punctuation {
+
+}
+
 /* Styles used to display the wrong user guesses in the graveyard */
 .grave-letter {
   display: inline-block;

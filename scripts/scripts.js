@@ -132,7 +132,7 @@
        "look","two","more","write","go","see","number","no","way",
        "could","people","my","than","first","water","been","call",
        "who","oil","its","now","find","long","down","day","did","get",
-       "come","made","may","part","alien"
+       "come","made","may","part","alien","jaws"
     ];
   // Change hangmanwords to draw from API search //
   var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
@@ -156,30 +156,40 @@
   function wordSelect(array) {
     var num = Math.floor(Math.random() * (array.length - 1));
     var word = array[num];
-    console.log(word);
     return word;
   }
 
-  function setWordToBeGuessed(word){
+  function removeSpaces(str){
+    var noSpaces = str.split("");
+
+    return noSpaces.filter(a => alphabet.includes(a));
+  }
+
+  function setWordToBeGuessed(movie){
 
     //creates blocks in the DOM indicating where there are letters and spaces
     // word = word.split(" ");
-    word.split("").map(function(character) {
+    movie.split("").map(function(character) {
       var guessWordBlock = document.getElementById("word-to-guess");
 
       var domElem = document.createElement("div");
 
       if (alphabet.includes(character)) {
         domElem.className = "character-block is-letter";
-        console.log(character);
+        // console.log(character);
       } else if (character === " ") {
-        domElem.className = "character-block";
+        domElem.innerHTML = character;
+        domElem.className = "character-block c-block-span";
+        console.log(character);
       } else {
-        domElem.className = "character-block";
+        // domElem.className = "character-block span";
+        // var domElem = document.createElement("span");
+        domElem.innerHTML = character;
       }
+
       guessWordBlock.appendChild(domElem);
     });
-    currentWord = word;
+    currentWord = removeSpaces(movie);
   }
 
 
