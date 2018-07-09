@@ -132,7 +132,7 @@
        "look","two","more","write","go","see","number","no","way",
        "could","people","my","than","first","water","been","call",
        "who","oil","its","now","find","long","down","day","did","get",
-       "come","made","may","part","alien","jaws"
+       "come","made","may","part","alien","jaws","little","big","small"
     ];
   // Change hangmanwords to draw from API search //
   var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
@@ -179,10 +179,10 @@
         // console.log(character);
       } else if (character === " ") {
         domElem.innerHTML = character;
-        domElem.className = "character-block c-block-span";
+        domElem.className = "character-block";
         console.log(character);
       } else {
-        // domElem.className = "character-block span";
+        domElem.className = "character-block is-punctuation";
         // var domElem = document.createElement("span");
         domElem.innerHTML = character;
       }

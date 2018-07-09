@@ -109,7 +109,9 @@ button .pull-right{
 }
 
 .is-punctuation {
-
+  font-size: 2em;
+  font-weight: bold;
+  color: red;
 }
 
 /* Styles used to display the wrong user guesses in the graveyard */
